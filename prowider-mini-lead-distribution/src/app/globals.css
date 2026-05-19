@@ -97,7 +97,7 @@ button {
   border: 1px solid transparent;
   padding: 0.82rem 1.2rem;
   font-weight: 600;
-  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  transition: transform 0.12s cubic-bezier(.2,.9,.2,1), box-shadow 0.12s ease, border-color 0.12s ease, opacity 0.12s ease;
 }
 
 .nav-pill {
@@ -131,6 +131,37 @@ button {
   opacity: 0.7;
 }
 
+.button:focus-visible,
+.nav-pill:focus-visible {
+  outline: 3px solid rgba(29,78,216,0.16);
+  outline-offset: 4px;
+}
+
+.button:active {
+  transform: translateY(1px) scale(0.998);
+}
+
+/* Notice animations */
+.notice {
+  transition: transform 260ms cubic-bezier(.2,.9,.2,1), opacity 220ms ease;
+  will-change: transform, opacity;
+}
+
+.notice.enter {
+  transform: translateY(-6px);
+  opacity: 0;
+}
+
+.notice.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.small-text {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
 .hero-card,
 .panel {
   border: 1px solid var(--border);
@@ -141,8 +172,24 @@ button {
 
 .hero-card {
   display: grid;
+  grid-template-columns: 1fr 320px;
+  align-items: center;
   gap: 1.5rem;
   padding: 2rem;
+}
+
+.hero-illustration {
+  width: 100%;
+  height: 220px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(29,78,216,0.08), rgba(16,32,51,0.03));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+  font-weight: 700;
+  font-size: 1.1rem;
+  border: 1px dashed rgba(29,78,216,0.12);
 }
 
 .hero-copy,
@@ -174,7 +221,29 @@ button {
 }
 
 .panel {
-  padding: 1.4rem;
+  padding: 1.6rem;
+}
+
+.panel h2 {
+  font-size: 1.05rem;
+  margin-bottom: 0.6rem;
+  color: var(--foreground);
+}
+
+.list li {
+  position: relative;
+  padding-left: 1.1rem;
+}
+
+.list li::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--primary);
+  position: absolute;
+  left: 0;
+  top: 0.65rem;
 }
 
 .grid-2,
@@ -256,6 +325,21 @@ textarea {
   background: white;
   padding: 0.88rem 1rem;
   color: var(--foreground);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: inset 0 0 0 3px rgba(29,78,216,0.08);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--muted);
+  opacity: 0.7;
 }
 
 textarea {
@@ -344,6 +428,106 @@ textarea {
   font-size: 0.85rem;
   text-transform: uppercase;
   color: var(--muted);
+  font-weight: 700;
+  background: rgba(248, 251, 255, 0.6);
+}
+
+.lead-table tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+.lead-table tbody tr:hover {
+  background-color: rgba(29,78,216,0.02);
+}
+
+.lead-table tbody tr td:first-child {
+  font-weight: 500;
+}
+
+/* Stat card improvements */
+.compact-stats .panel {
+  background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(248,251,255,0.5));
+}
+
+.compact-stats .panel strong {
+  font-size: 1.6rem;
+  color: var(--primary);
+}
+
+/* Badge variants */
+.badge.badge--success {
+  background: var(--success-soft);
+  color: var(--success);
+}
+
+.badge.badge--warning {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.badge.badge--info {
+  background: var(--primary-soft);
+  color: var(--primary);
+}
+
+/* Status indicator dot */
+.status-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 0.4rem;
+}
+
+.status-dot.status-dot--active {
+  background: var(--success);
+}
+
+.status-dot.status-dot--warning {
+  background: #fbbf24;
+}
+
+.status-dot.status-dot--idle {
+  background: var(--muted);
+}
+
+/* Loading and animation utilities */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.spinner {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  border: 2px solid rgba(29,78,216,0.2);
+  border-right-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+.pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.slide-in {
+  animation: slideIn 0.3s cubic-bezier(.2,.9,.2,1);
 }
 
 .log-card {
@@ -362,11 +546,22 @@ textarea {
   font-size: 0.82rem;
 }
 
+.log-card strong {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #60a5fa;
+  font-size: 0.95rem;
+}
+
 @media (max-width: 960px) {
   .grid-2,
   .grid-3,
   .compact-stats,
   .provider-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-card {
     grid-template-columns: 1fr;
   }
 

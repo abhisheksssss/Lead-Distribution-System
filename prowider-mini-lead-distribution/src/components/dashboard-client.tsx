@@ -70,21 +70,27 @@ export function DashboardClient({ initialSnapshot }: DashboardClientProps) {
         <div className="panel stack-xs">
           <span className="label">Last refreshed</span>
           <strong>{formatDateTime(snapshot.updatedAt)}</strong>
+          {loading && <div className="spinner" style={{ fontSize: '0.9rem', marginTop: '0.3rem' }} />}
         </div>
       </section>
 
-      {errorMessage ? <div className="notice notice--error">{errorMessage}</div> : null}
-      {loading ? <p className="muted">Refreshing dashboard…</p> : null}
+      {errorMessage ? (
+        <div className="notice notice--error slide-in" role="alert">
+          <strong>Refresh error:</strong> {errorMessage}
+        </div>
+      ) : null}
 
       <div className="provider-grid">
         {snapshot.providers.map((provider) => (
-          <section key={provider.providerId} className="panel stack-md provider-card">
+          <section key={provider.providerId} className="panel stack-md provider-card slide-in">
             <div className="provider-card__header">
               <div>
                 <h2>{provider.providerName}</h2>
                 <p className="muted">Provider #{provider.providerId}</p>
               </div>
-              <span className="badge">Remaining quota: {provider.remainingQuota}</span>
+              <span className="badge badge--info">
+                {provider.remainingQuota > 0 ? `${provider.remainingQuota} remaining` : 'Quota full'}
+              </span>
             </div>
 
             <div className="mini-metrics">
@@ -95,6 +101,10 @@ export function DashboardClient({ initialSnapshot }: DashboardClientProps) {
               <div>
                 <span className="label">Monthly quota</span>
                 <strong>{provider.quotaLimit}</strong>
+              </div>
+              <div>
+                <span className="label">Usage</span>
+                <strong>{Math.round((provider.leadsUsed / provider.quotaLimit) * 100)}%</strong>
               </div>
             </div>
 
@@ -124,7 +134,7 @@ export function DashboardClient({ initialSnapshot }: DashboardClientProps) {
                           <td>{lead.serviceName}</td>
                           <td>{lead.city}</td>
                           <td>{lead.phoneNumber}</td>
-                          <td>{formatDateTime(lead.assignedAt)}</td>
+                          <td className="small-text">{formatDateTime(lead.assignedAt)}</td>
                         </tr>
                       ))}
                     </tbody>

@@ -8,22 +8,39 @@ export default function HomePage() {
           <span className="badge">Engineering-first implementation</span>
           <h1>Prowider Mini Lead Distribution System</h1>
           <p className="hero-copy">
-            This implementation focuses on allocation correctness, persistent fair rotation, quota safety,
-            duplicate protection at database level, idempotent webhooks, and real-time dashboard updates.
+            Allocation correctness, persistent fair rotation, quota safety, duplicate protection,
+            idempotent webhooks, and real-time dashboard updates — built for predictable reliability.
           </p>
+
+          <div className="hero-actions">
+            <Link href="/request-service" className="button button--primary">
+              Open customer form
+            </Link>
+            <Link href="/dashboard" className="button button--secondary">
+              View provider dashboard
+            </Link>
+            <Link href="/test-tools" className="button button--ghost">
+              Run test tools
+            </Link>
+          </div>
         </div>
 
-        <div className="hero-actions">
-          <Link href="/request-service" className="button button--primary">
-            Open customer form
-          </Link>
-          <Link href="/dashboard" className="button button--secondary">
-            View provider dashboard
-          </Link>
-          <Link href="/test-tools" className="button button--ghost">
-            Run test tools
-          </Link>
-        </div>
+        <aside className="hero-illustration" aria-hidden>
+          <svg width="160" height="160" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0" y="0" width="160" height="160" rx="12" fill="url(#g)"/>
+            <g transform="translate(20,36)" fill="white" opacity="0.95">
+              <circle cx="16" cy="16" r="16" fill="#1d4ed8" />
+              <circle cx="56" cy="24" r="10" fill="#60a5fa" />
+              <circle cx="96" cy="40" r="8" fill="#93c5fd" />
+            </g>
+            <defs>
+              <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stopColor="#dbeafe" />
+                <stop offset="1" stopColor="#f1f8ff" />
+              </linearGradient>
+            </defs>
+          </svg>
+        </aside>
       </section>
 
       <section className="grid-3">
