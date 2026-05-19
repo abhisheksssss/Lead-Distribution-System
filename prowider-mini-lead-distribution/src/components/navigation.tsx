@@ -12,9 +12,9 @@ export function Navigation() {
     <header className="site-header">
       <div className="shell site-header__inner">
         <div>
-          <p className="eyebrow">Full Stack Developer Assignment</p>
+          {/* <p className="eyebrow">Full Stack Developer Assignment</p> */}
           <Link href="/" className="brand-link">
-            Prowider Mini Lead Distribution System
+            Lead Distribution System
           </Link>
         </div>
 

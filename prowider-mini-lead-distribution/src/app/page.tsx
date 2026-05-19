@@ -5,7 +5,7 @@ export default function HomePage() {
     <div className="stack-xl">
       <section className="hero-card">
         <div className="stack-md">
-          <span className="badge">Engineering-first implementation</span>
+          {/* <span className="badge">Engineering-first implementation</span> */}
           <h1>Prowider Mini Lead Distribution System</h1>
           <p className="hero-copy">
             Allocation correctness, persistent fair rotation, quota safety, duplicate protection,
